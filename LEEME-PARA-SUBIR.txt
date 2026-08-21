@@ -1,0 +1,18 @@
+SITIO GREEN HEARTS — ARCHIVOS LISTOS PARA HOSTING
+
+Este sitio es estático. No requiere instalar nada ni configurar una base de datos.
+
+Para publicarlo:
+1. En el panel de tu hosting, abre el administrador de archivos o la opción de subir sitio.
+2. Sube TODOS los archivos de esta carpeta directamente a la carpeta pública del dominio:
+   normalmente se llama public_html, www, htdocs o public.
+3. Debe quedar index.html en esa carpeta pública, no dentro de otra carpeta GREEN.
+4. No subas este archivo de instrucciones si no quieres; no afecta al sitio.
+
+También se entrega el archivo GREEN-para-hosting.zip. Si tu hosting permite subir ZIP,
+súbelo y descomprímelo dentro de la carpeta pública. Si usas Netlify Drop, arrastra la
+carpeta GREEN completa (o el ZIP si la plataforma lo acepta).
+
+IMPORTANTE: El formulario de contacto tiene un modo de respaldo que abre el correo del
+visitante. Para que envíe correos automáticamente desde la web, hay que configurar
+EmailJS con sus credenciales; esto es independiente de la publicación del sitio.
