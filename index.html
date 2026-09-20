@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Green Hearts es una organización ambiental universitaria de la UNA Sarapiquí, Costa Rica, dedicada al reciclaje, la limpieza y la educación ambiental." />
+    <title>Green Hearts — UNA-Sarapiquí</title>
+
+    <!-- ========== SEGURIDAD Y SEO ========== -->
+    <!-- Content Security Policy (CSP) reforzada: sin 'unsafe-eval', con base-uri, form-action,
+         object-src y upgrade-insecure-requests para reducir la superficie de ataque XSS/inyección.
+         'unsafe-inline' en script/style se mantiene solo porque el archivo es estático de un solo
+         fichero (sin build step que genere nonces); los encabezados de seguridad pueden
+         reforzarse desde la configuración del proveedor de hosting en producción. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://fonts.googleapis.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; img-src 'self' data: https://images.unsplash.com; media-src 'self' blob:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.emailjs.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests;" />
+    <!-- Prevenir clickjacking (reforzado también por frame-ancestors arriba) -->
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <!-- Política de referrer: no filtrar la URL completa a orígenes externos -->
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <!-- Desactivar APIs sensibles que este sitio nunca usa (defensa en profundidad) -->
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()" />
+    <meta name="theme-color" content="#054400" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%9A%3C/text%3E%3C/svg%3E" />
+
+    <!-- Open Graph / Redes Sociales -->
+    <meta property="og:title" content="Green Hearts — UNA-Sarapiquí" />
+    <meta property="og:description" content="Organización ambiental universitaria de la UNA Sarapiquí dedicada al reciclaje, la limpieza y la educación ambiental." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Green Hearts — UNA-Sarapiquí" />
+    <meta name="twitter:description" content="Green Hearts impulsa iniciativas ambientales y educativas en Sarapiquí, Costa Rica." />
+
+    <!-- Schema.org (Organización) -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Green Hearts",
+            "alternateName": "Green Hearts UNA Sarapiquí",
+            "description": "Organización ambiental universitaria de la Universidad Nacional de Costa Rica, sede Sarapiquí.",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Sarapiquí",
+                "addressRegion": "Heredia",
+                "addressCountry": "Costa Rica"
+            },
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "email": "green.hearts.una@gmail.com",
+                "contactType": "customer service"
+            },
+            "sameAs": [
+                "https://instagram.com/green_hearts_una"
+            ]
+        }
+    </script>
+
+    <!-- ========== OPTIMIZACIÓN DE RECURSOS ========== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Precarga de la imagen principal del hero (optimización) -->
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1448375240586-882707db888b?w=1600&q=80" fetchpriority="high" />
+
+    <!-- EmailJS (cargado con defer para no bloquear renderizado).
+         crossorigin="anonymous" habilita reporte de errores limpio y es requisito para poder
+         añadir el atributo integrity (SRI). Genera el hash real con:
+         `openssl dgst -sha384 -binary email.min.js | openssl base64 -A` sobre el archivo publicado
+         por EmailJS y pégalo aquí como integrity="sha384-...". No se incluye un hash inventado
+         porque un hash incorrecto bloquearía la carga del script (fail-closed por diseño de SRI). -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="light-theme">
+
+    <div class="grain-overlay" aria-hidden="true"></div>
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+    <!-- ========== FAUNA INTERACTIVA DE FONDO ==========
+         Generada dinámicamente por JS (mariposas, colibrí, luciérnagas).
+         El tucán es el único elemento fijo en el marcado porque su vuelo
+         es una animación CSS periódica, no una que necesite lógica de huida. -->
+    <div class="wildlife-layer" id="wildlifeLayer" aria-hidden="true">
+        <div class="critter toucan" aria-hidden="true">
+            <svg viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="34" cy="40" rx="16" ry="13" fill="#111"/>
+                <path class="wing" d="M28 30c-6 2-12 8-12 16 6 2 12-2 15-8z" fill="#0a0a0a"/>
+                <circle cx="44" cy="28" r="9" fill="#111"/>
+                <path d="M50 24c10-4 20-2 24 3-8 3-16 3-22 1z" fill="#F4A020"/>
+                <path d="M50 28c9 2 17 6 20 12-8 0-16-3-21-7z" fill="#E8871E"/>
+                <circle cx="46" cy="25" r="1.6" fill="#fff"/>
+                <path d="M22 50c0 6 4 10 10 10s8-3 8-7" stroke="#F4A020" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- ========== NAV ========== -->
+    <nav id="navbar" role="navigation" aria-label="Navegación principal">
+        <a href="#inicio" class="nav-logo" aria-label="Green Hearts - Inicio">
+            <div class="nav-logo-icon" aria-hidden="true">💚</div>
+            <span class="nav-logo-text">Green Hearts</span>
+        </a>
+        <div class="nav-overlay" id="navOverlay"></div>
+        <div class="nav-menu" id="navMenu">
+            <ul class="nav-links">
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#actividades">Actividades</a></li>
+                <li><a href="#impacto">Impacto</a></li>
+                <li><a href="#galeria">Archivo visual</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </div>
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menú" aria-controls="navMenu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- ========== HERO ========== -->
+    <section id="inicio" aria-labelledby="hero-title">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="hero-particles" aria-hidden="true">
+            <svg class="leaf" style="top:10%;left:5%;width:80px;animation-delay:0s;" viewBox="0 0 80 100" fill="none">
+                <path d="M40 5 C60 20 75 50 40 95 C5 50 20 20 40 5Z" fill="white" />
+            </svg>
+            <svg class="leaf" style="top:20%;right:8%;width:55px;animation-delay:3s;" viewBox="0 0 80 100" fill="none">
+                <path d="M40 5 C60 20 75 50 40 95 C5 50 20 20 40 5Z" fill="white" />
+            </svg>
+            <svg class="leaf" style="bottom:25%;left:12%;width:45px;animation-delay:6s;" viewBox="0 0 80 100" fill="none">
+                <path d="M40 5 C60 20 75 50 40 95 C5 50 20 20 40 5Z" fill="white" />
+            </svg>
+            <svg class="leaf" style="top:40%;right:15%;width:65px;animation-delay:1.5s;" viewBox="0 0 80 100" fill="none">
+                <path d="M40 5 C60 20 75 50 40 95 C5 50 20 20 40 5Z" fill="white" />
+            </svg>
+            <svg class="leaf" style="bottom:35%;right:5%;width:40px;animation-delay:4.5s;" viewBox="0 0 80 100" fill="none">
+                <path d="M40 5 C60 20 75 50 40 95 C5 50 20 20 40 5Z" fill="white" />
+            </svg>
+        </div>
+        <div class="hero-content">
+            <p class="hero-welcome">Iniciativa ambiental universitaria</p>
+            <div class="hero-badge">🌿 Universidad Nacional de Costa Rica · Sarapiquí</div>
+            <h1 class="hero-grupo-nombre" id="hero-title">Green Hearts</h1>
+            <p class="hero-subtitle" aria-live="polite">Green Hearts impulsa un futuro más limpio y sostenible desde el corazón del Caribe costarricense.</p>
+            <div class="hero-values" aria-label="Valores de Green Hearts">
+                <span class="hero-value">Comunidad</span>
+                <span class="hero-value">Naturaleza</span>
+                <span class="hero-value">Acción</span>
+            </div>
+            <div class="hero-ctas">
+                <a href="#unete" class="btn-primary">🌱 Conozca la iniciativa</a>
+                <a href="#nosotros" class="btn-secondary">Conozca Green Hearts</a>
+            </div>
+            <div class="hero-explore" aria-label="Explorar Green Hearts">
+                <a href="#actividades">Consultar actividades →</a>
+                <a href="#galeria">Explorar el archivo visual →</a>
+            </div>
+        </div>
+        <div class="scroll-down" aria-hidden="true">
+            <span>Scroll</span>
+            <svg width="16" height="20" viewBox="0 0 16 20" fill="none">
+                <path d="M8 1v14M1 9l7 8 7-8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </div>
+        <div class="hero-wave" aria-hidden="true">
+            <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#F8F9EA" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- ========== NOSOTROS ========== -->
+    <section id="nosotros" aria-labelledby="nosotros-title">
+        <div class="container">
+            <div class="nosotros-grid">
+                <div class="nosotros-image-wrapper reveal-left">
+                    <img src="assets/images/foto.jpeg" alt="Foto grupal del equipo Green Hearts" loading="lazy" decoding="async" width="1280" height="960" />
+                    <div class="nosotros-badge"><strong>2024</strong>Año de fundación</div>
+                </div>
+                <div class="reveal-right">
+                    <p class="section-label">Sobre Nosotros</p>
+                    <h2 class="section-title" id="nosotros-title">Una iniciativa ambiental para Sarapiquí</h2>
+                    <p class="section-desc">Green Hearts es una organización voluntaria universitaria de la <strong>Universidad Nacional de Costa Rica, sede Sarapiquí</strong>. La iniciativa reúne a estudiantes comprometidos con la protección ambiental, la sostenibilidad y el bienestar de las comunidades.</p>
+                    <p class="section-desc" style="margin-top:1rem;">La organización articula esfuerzos con comunidades locales, docentes y autoridades para generar un impacto medible y duradero en una de las regiones más biodiversas de Costa Rica.</p>
+                    <div class="mv-cards">
+                        <div class="mv-card">
+                            <h4>🌱 Misión</h4>
+                            <p>Fomentar la conciencia ambiental mediante reciclaje, recolección de residuos sólidos y educación en la Región Huetar Norte.</p>
+                        </div>
+                        <div class="mv-card">
+                            <h4>🌟 Visión</h4>
+                            <p>Consolidarse como un referente estudiantil ambiental en Costa Rica y contribuir a la replicación de este modelo en otras sedes universitarias.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== ACTIVIDADES ========== -->
+    <section id="actividades" aria-labelledby="actividades-title">
+        <div class="container">
+            <div class="actividades-header">
+                <div>
+                    <p class="section-label">Líneas de trabajo</p>
+                    <h2 class="section-title reveal" id="actividades-title">Actividades<br />ambientales</h2>
+                </div>
+                <p class="section-desc reveal" style="max-width:360px;">Cada línea de trabajo fortalece la participación comunitaria y contribuye a la protección de los ecosistemas de Sarapiquí.</p>
+            </div>
+            <a class="btn-voluntario accion-social-button" href="#accion-social">🤝 Conozca la acción social</a>
+            <div class="actividades-grid">
+                <article class="act-card reveal" style="transition-delay:0.1s">
+                    <div class="act-icon" aria-hidden="true">🗑️</div>
+                    <h3>Recolección de Residuos</h3>
+                    <p>Green Hearts coordina jornadas comunitarias de limpieza en ríos, parques, calles y zonas rurales de Sarapiquí, con la participación de vecinos, estudiantes y personas voluntarias.</p>
+                    <span class="act-tag">Jornadas Comunitarias</span>
+                </article>
+                <article class="act-card reveal" style="transition-delay:0.2s">
+                    <div class="act-icon" aria-hidden="true">♻️</div>
+                    <h3>Separación y Reciclaje</h3>
+                    <p>La organización implementa puntos de acopio y orienta a hogares, negocios y a la comunidad universitaria en la correcta clasificación de residuos plásticos, vidrio, metal y orgánicos.</p>
+                    <span class="act-tag">Economía Circular</span>
+                </article>
+                <article class="act-card reveal" style="transition-delay:0.3s">
+                    <div class="act-icon" aria-hidden="true">📚</div>
+                    <h3>Talleres Educativos</h3>
+                    <p>Green Hearts desarrolla programas de concienciación en escuelas, colegios y mercados para promover la valorización de materiales y el consumo responsable desde edades tempranas.</p>
+                    <span class="act-tag">Educación Ambiental</span>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== ACCIÓN SOCIAL ========== -->
+    <section id="accion-social" aria-labelledby="accion-social-title">
+        <div class="container">
+            <div class="accion-social-intro reveal">
+                <p class="section-label">Compromiso con la comunidad</p>
+                <h2 class="section-title" id="accion-social-title">Acción social que<br />educa y conecta</h2>
+                <p class="section-desc">La labor ambiental de Green Hearts también se desarrolla en aulas, espacios universitarios y encuentros culturales. La organización comparte conocimientos, escucha a las comunidades y convierte la educación en acciones que protegen el territorio.</p>
+            </div>
+            <div class="accion-social-grid">
+                <article class="accion-card reveal">
+                    <div class="accion-card-media">
+                        <img src="assets/images/escuela1.jpeg" alt="Estudiantes durante la actividad de reciclaje en la escuela Asentamiento Chirripó" loading="lazy" width="800" height="520" />
+                        <span class="accion-card-number" aria-hidden="true">01</span>
+                    </div>
+                    <div class="accion-card-body">
+                        <h3>Reciclaje desde la escuela</h3>
+                        <p>Green Hearts visitó la escuela Asentamiento Chirripó para enseñar al estudiantado a reciclar, separar los residuos y comprender la importancia de cada acción para cuidar la comunidad y el ambiente.</p>
+                    </div>
+                </article>
+                <article class="accion-card reveal">
+                    <div class="accion-card-media">
+                        <img src="assets/images/una.jpeg" alt="Charla de conciencia ecológica en la Universidad Nacional" loading="lazy" width="800" height="520" />
+                        <span class="accion-card-number" aria-hidden="true">02</span>
+                    </div>
+                    <div class="accion-card-body">
+                        <h3>Conciencia ecológica en la UNA</h3>
+                        <p>La organización impartió charlas de concienciación ambiental en la Universidad Nacional, sede regional Sarapiquí, para promover la participación de la comunidad universitaria en soluciones sostenibles.</p>
+                    </div>
+                </article>
+                <article class="accion-card reveal">
+                    <div class="accion-card-media">
+                        <img src="assets/images/Congreso.jpeg" alt="Participación de Green Hearts en un congreso de educación propia" loading="lazy" width="800" height="520" />
+                        <span class="accion-card-number" aria-hidden="true">03</span>
+                    </div>
+                    <div class="accion-card-body">
+                        <h3>Congreso de educación propia</h3>
+                        <p>Green Hearts participó en el primer Congreso de Educación Propia de los pueblos indígenas Bribri y Cabécar, donde reconoció el valor de sus saberes y territorios.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== IMPACTO ========== -->
+    <section id="impacto" aria-labelledby="impacto-title">
+        <div class="container">
+            <div class="impacto-layout">
+                <div class="stats-grid reveal-left">
+                    <div class="stat-card"><span class="stat-icon" aria-hidden="true">⚖️</span>
+                        <div class="stat-number"><span class="counter" data-target="150">0</span>kg</div>
+                        <div class="stat-label">Residuos recolectados</div>
+                    </div>
+                    <div class="stat-card"><span class="stat-icon" aria-hidden="true">🙌</span>
+                        <div class="stat-number"><span class="counter" data-target="35">0</span></div>
+                        <div class="stat-label">Voluntarios activos</div>
+                    </div>
+                    <div class="stat-card"><span class="stat-icon" aria-hidden="true">🏘️</span>
+                        <div class="stat-number"><span class="counter" data-target="5">0</span></div>
+                        <div class="stat-label">Comunidades impactadas</div>
+                    </div>
+                    <div class="stat-card"><span class="stat-icon" aria-hidden="true">🌳</span>
+                        <div class="stat-number"><span class="counter" data-target="100">0</span></div>
+                        <div class="stat-label">Árboles sembrados</div>
+                    </div>
+                </div>
+                <div class="impacto-text reveal-right">
+                    <p class="section-label">Resultados de la iniciativa</p>
+                    <h2 class="section-title" id="impacto-title">Resultados que<br />reflejan el compromiso</h2>
+                    <p class="section-desc">Desde su fundación, cada jornada, taller y kilogramo de residuo recolectado contribuye a la recuperación de los ecosistemas de Sarapiquí y al fortalecimiento de una cultura ambiental duradera.</p>
+                    <div class="impacto-quote">
+                        <p>"Sarapiquí es uno de los territorios con mayor biodiversidad de Costa Rica. Su protección representa una responsabilidad compartida entre estudiantes, instituciones y ciudadanía."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIOS ========== -->
+    <section id="testimonios" aria-labelledby="testimonios-title">
+        <div class="container">
+            <p class="section-label">Voces de la comunidad</p>
+            <h2 class="section-title" id="testimonios-title">Historias que inspiran</h2>
+            <p class="section-desc">La iniciativa reúne experiencias de voluntariado, docencia y participación comunitaria que reflejan el proceso de transformación ambiental en Sarapiquí.</p>
+            <div class="testimonios-grid reveal">
+                <article class="testimonio-card">
+                    <div class="testimonio-stars" aria-hidden="true">★★★★★</div>
+                    <p>"El programa de recolección de residuos cambia mi forma de ver el ambiente: ahora siento que cada acción suma, y la comunidad está más conectada."</p>
+                    <div class="testimonio-author">Teilor Perez</div>
+                    <div class="testimonio-role">Voluntaria Green Hearts</div>
+                </article>
+                <article class="testimonio-card">
+                    <div class="testimonio-stars" aria-hidden="true">★★★★★</div>
+                    <p>"Los talleres con jóvenes de escuelas rurales son un claro ejemplo de cómo sembrar raíces de conciencia ecológica para el futuro."</p>
+                    <div class="testimonio-author">Willy Pineda</div>
+                    <div class="testimonio-role">Docente y colaborador</div>
+                </article>
+                <article class="testimonio-card">
+                    <div class="testimonio-stars" aria-hidden="true">★★★★★</div>
+                    <p>"La energía y compromiso en cada jornada es contagioso. Sarapiquí se está convirtiendo en un modelo de sostenibilidad en la región."</p>
+                    <div class="testimonio-author">Silvia Hernández</div>
+                    <div class="testimonio-role">Voluntaria de Green Hearts</div>
+                </article>
+            </div>
+            <div class="testimonios-grupo">
+                <span class="grupo-badge">🌱 Green Hearts</span>
+                <span class="grupo-nombre"> Universidad Nacional de Costa Rica</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== GALERÍA (CARRUSEL MEJORADO) ========== -->
+    <section id="galeria" aria-labelledby="galeria-title">
+        <div class="container">
+            <div class="galeria-header reveal">
+                <p class="section-label">Archivo visual</p>
+                <h2 class="section-title" id="galeria-title">Imágenes y videos<br />de Green Hearts</h2>
+                <p class="section-desc" style="margin:0 auto 1.5rem;">La portada presenta una selección de actividades. Este archivo reúne fotografías y videos de las iniciativas desarrolladas por Green Hearts.</p>
+            </div>
+            <div class="carousel-container reveal" role="region" aria-roledescription="carrusel" aria-label="Galería de imágenes" tabindex="0">
+                <div class="carousel-track" id="carouselTrack">
+                    <!-- Cada slide usa loading="lazy" y atributos de tamaño para rendimiento -->
+                    <div class="carousel-slide">
+                        <img src="assets/images/imag1.jpeg" alt="Equipo Green Hearts" loading="lazy" decoding="async" width="950" height="520" />
+                        <div class="carousel-caption">
+                            <h3>Equipo Green Hearts</h3>
+                            <p>Voluntarios comprometidos con el medio ambiente</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/images/imag2.jpeg" alt="Encuentro internacional" loading="lazy" width="950" height="520" />
+                        <div class="carousel-caption">
+                            <h3>Encuentro Internacional</h3>
+                            <p>Visitantes internacionales en la UNA Sarapiquí</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/images/imag3.jpeg" alt="Taller de cacao" loading="lazy" width="950" height="520" />
+                        <div class="carousel-caption">
+                            <h3>Taller de Cacao</h3>
+                            <p>Costa Rica Best Chocolate - Educación ambiental</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/images/imag4.jpeg" alt="Centro de Visitantes La Selva" loading="lazy" width="950" height="520" />
+                        <div class="carousel-caption">
+                            <h3>Centro de Visitantes La Selva</h3>
+                            <p>Explorando la biodiversidad de Sarapiquí</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/images/WhatsApp Image 2026-03-25 at 6.48.16 PM.jpeg" alt="Jornada de limpieza" loading="lazy" width="950" height="520" />
+                        <div class="carousel-caption">
+                            <h3>Jornada de Limpieza</h3>
+                            <p>Recolección de residuos en zonas naturales</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/images/WhatsApp Image 2026-03-25 at 6.48.16 PM (1).jpeg" alt="Trabajo en equipo" loading="lazy" width="950" height="520" />
+                        <div class="carousel-caption">
+                            <h3>Trabajo en Equipo</h3>
+                            <p>Personas voluntarias colaborando por un futuro sostenible</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/images/WhatsApp Image 2026-03-25 at 6.48.16 PM (2).jpeg" alt="Educación ambiental" loading="lazy" width="950" height="520" />
+                        <div class="carousel-caption">
+                            <h3>Educación Ambiental</h3>
+                            <p>Concienciación en la comunidad</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/images/WhatsApp Image 2026-03-25 at 6.48.16 PM (3).jpeg" alt="Reciclaje en acción" loading="lazy" width="950" height="520" />
+                        <div class="carousel-caption">
+                            <h3>Reciclaje en Acción</h3>
+                            <p>Separación adecuada de residuos</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/images/WhatsApp Image 2026-03-25 at 6.48.16 PM (4).jpeg" alt="Protección de ecosistemas" loading="lazy" width="950" height="520" />
+                        <div class="carousel-caption">
+                            <h3>Protección de Ecosistemas</h3>
+                            <p>Conservando la biodiversidad de Sarapiquí</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/images/WhatsApp Image 2026-03-25 at 6.48.16 PM (5).jpeg" alt="Senderos naturales" loading="lazy" width="950" height="520" />
+                        <div class="carousel-caption">
+                            <h3>Senderos Naturales</h3>
+                            <p>Exploración y cuidado del entorno</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/images/WhatsApp Image 2026-03-25 at 6.48.17 PM.jpeg" alt="Flora local" loading="lazy" width="950" height="520" />
+                        <div class="carousel-caption">
+                            <h3>Flora Local</h3>
+                            <p>Conociendo las especies nativas</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/images/una.jpeg" alt="Fauna silvestre" loading="lazy" width="950" height="520" />
+                        <div class="carousel-caption">
+                            <h3>Fauna Silvestre</h3>
+                            <p>Observación de vida salvaje</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/images/WhatsApp Image 2026-03-25 at 6.48.17 PM (2).jpeg" alt="Proyectos comunitarios" loading="lazy" width="950" height="520" />
+                        <div class="carousel-caption">
+                            <h3>Proyectos Comunitarios</h3>
+                            <p>Iniciativas de sostenibilidad</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/images/WhatsApp Image 2026-03-25 at 6.48.17 PM (3).jpeg" alt="Concienciación" loading="lazy" width="950" height="520" />
+                        <div class="carousel-caption">
+                            <h3>Concienciación</h3>
+                            <p>Educando sobre el cuidado del medio ambiente</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/images/WhatsApp Image 2026-03-25 at 6.48.17 PM (4).jpeg" alt="Trabajo colaborativo" loading="lazy" width="950" height="520" />
+                        <div class="carousel-caption">
+                            <h3>Trabajo Colaborativo</h3>
+                            <p>Unidos por la naturaleza</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/images/WhatsApp Image 2026-03-25 at 6.48.17 PM (5).jpeg" alt="Reforestación" loading="lazy" width="950" height="520" />
+                        <div class="carousel-caption">
+                            <h3>Reforestación</h3>
+                            <p>Plantando árboles para el futuro</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/images/WhatsApp Image 2026-03-25 at 6.48.17 PM (6).jpeg" alt="Gestión de residuos" loading="lazy" width="950" height="520" />
+                        <div class="carousel-caption">
+                            <h3>Gestión de Residuos</h3>
+                            <p>Reciclaje y reutilización</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/images/WhatsApp Image 2026-03-25 at 6.48.17 PM (7).jpeg" alt="Conservación" loading="lazy" width="950" height="520" />
+                        <div class="carousel-caption">
+                            <h3>Conservación</h3>
+                            <p>Protección de los recursos naturales</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/images/WhatsApp Image 2026-03-25 at 6.48.17 PM (8).jpeg" alt="Futuro verde" loading="lazy" width="950" height="520" />
+                        <div class="carousel-caption">
+                            <h3>Futuro Verde</h3>
+                            <p>Construyendo un mañana sostenible</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/images/una.jpeg" alt="Actividad universitaria de Green Hearts" loading="lazy" width="950" height="520" />
+                        <div class="carousel-caption">
+                            <h3>Actividades Extra</h3>
+                            <p>Eventos especiales y talleres</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-arrow prev" id="carouselPrev" aria-label="Diapositiva anterior">&#10094;</button>
+                <button class="carousel-arrow next" id="carouselNext" aria-label="Diapositiva siguiente">&#10095;</button>
+                <div class="carousel-nav" id="carouselNav" role="tablist" aria-label="Navegación del carrusel"></div>
+                <div class="carousel-autoplay-indicator" aria-live="polite">
+                    <span>●</span> Auto
+                </div>
+            </div>
+            <div class="carousel-library-link">
+                <a class="btn-secondary" href="#galeria">Ver archivo visual</a>
+            </div>
+        </div>
+        <div class="container multimedia-content">
+            <div class="multimedia-header reveal">
+                <div>
+                    <p class="section-label">Archivo visual</p>
+                    <h2 class="section-title" id="multimedia-title">Imágenes y videos</h2>
+                </div>
+                <p class="media-count" id="mediaCount" aria-live="polite"></p>
+            </div>
+            <div class="media-filters" role="tablist" aria-label="Filtrar contenido multimedia">
+                <button class="media-filter active" type="button" role="tab" aria-selected="true" data-filter="all">Todo</button>
+                <button class="media-filter" type="button" role="tab" aria-selected="false" data-filter="image">Fotos</button>
+                <button class="media-filter" type="button" role="tab" aria-selected="false" data-filter="video">Videos</button>
+            </div>
+            <div class="media-grid" id="mediaGrid" aria-live="polite"></div>
+            <p class="media-empty" id="mediaEmpty">No hay contenido en esta categoría.</p>
+            <div class="media-more-wrap" id="mediaMoreWrap">
+                <button class="media-more" id="mediaMore" type="button" aria-expanded="false">Ver más contenido</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== LIGHTBOX ========== -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Vista ampliada de imagen">
+        <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Cerrar imagen ampliada">×</button>
+        <img id="lightboxImg" src="" alt="" />
+    </div>
+
+    <!-- ========== ÚNETE ========== -->
+    <section id="unete" aria-labelledby="unete-title">
+        <div class="container" style="position:relative;z-index:1;">
+            <p class="section-label reveal" style="justify-content:center;">Participación voluntaria</p>
+            <h2 class="section-title reveal" style="color:white;text-align:center;" id="unete-title">Participe en el<br />cambio ambiental</h2>
+            <p class="unete-desc reveal">Green Hearts convoca a estudiantes, docentes y personas de la comunidad interesadas en contribuir al cuidado del ambiente. No se requiere experiencia previa, sino disposición para participar.</p>
+            <div class="unete-benefits reveal">
+                <div class="benefit"><div class="benefit-icon" aria-hidden="true">🤝</div><span>Red de voluntarios</span></div>
+                <div class="benefit"><div class="benefit-icon" aria-hidden="true">📜</div><span>Certificación universitaria</span></div>
+                <div class="benefit"><div class="benefit-icon" aria-hidden="true">💚</div><span>Impacto real</span></div>
+                <div class="benefit"><div class="benefit-icon" aria-hidden="true">🎓</div><span>Formación continua</span></div>
+            </div>
+            <div class="reveal">
+                <a href="#contacto" class="btn-voluntario">🌱 Solicitar participación</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CONTACTO ========== -->
+    <section id="contacto" aria-labelledby="contacto-title">
+        <div class="container">
+            <div class="contacto-grid">
+                <div class="reveal-left">
+                    <p class="section-label">Contáctanos</p>
+                    <h2 class="section-title" id="contacto-title">Hablemos sobre<br />el planeta</h2>
+                    <p style="color:var(--texto-medio);font-size:0.95rem;line-height:1.7;margin-bottom:2rem;">Para realizar consultas, presentar propuestas o establecer alianzas, puede comunicarse con Green Hearts a través de los siguientes canales.</p>
+                    <div class="contacto-items">
+                        <a href="mailto:green.hearts.una@gmail.com" class="contacto-item" aria-label="Correo electrónico">
+                            <div class="contacto-item-icon" aria-hidden="true">✉️</div><span>green.hearts.una@gmail.com</span>
+                        </a>
+                        <a href="https://maps.app.goo.gl/LurjYhtUmHS7oWG97" target="_blank" rel="noopener noreferrer" class="contacto-item" aria-label="Ubicación de la Universidad Nacional, sede Sarapiquí">
+                            <div class="contacto-item-icon" aria-hidden="true">📍</div><span>Universidad Nacional, Sede Sarapiquí</span>
+                        </a>
+                    </div>
+
+                    <div class="mini-map-card" aria-label="Mapa de ubicación">
+                        <div class="mini-map-placeholder" aria-hidden="true">
+                            <div class="mini-map-icon"></div>
+                        </div>
+                        <div class="mini-map-label">
+                            <span>Ubicación oficial</span>
+                            <a href="https://maps.app.goo.gl/LurjYhtUmHS7oWG97" target="_blank" rel="noopener noreferrer">Abrir mapa</a>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="https://instagram.com/green_hearts_una" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram" title="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                        <a href="https://wa.me/50683642394?text=Hola%20Green%20Hearts%2C%20quiero%20contactar%20con%20ustedes" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="WhatsApp" title="WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>
+                    </div>
+                </div>
+
+                <!-- FORMULARIO -->
+                <form class="contacto-form reveal-right" id="contactForm" novalidate>
+                    <h3>Envíanos un mensaje</h3>
+                    <div class="form-group">
+                        <label for="nombre">Nombre completo</label>
+                        <input type="text" id="nombre" placeholder="Tu nombre" autocomplete="name" maxlength="80" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" id="email" placeholder="tu@correo.com" autocomplete="email" maxlength="120" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="asunto">Asunto</label>
+                        <input type="text" id="asunto" placeholder="¿En qué podemos ayudarte?" maxlength="120" />
+                    </div>
+                    <div class="form-group">
+                        <label for="mensaje">Mensaje</label>
+                        <textarea id="mensaje" placeholder="Escribe tu mensaje aquí..." maxlength="2000" required></textarea>
+                    </div>
+                    <!-- Campo trampa (honeypot) anti-bots: invisible para personas, autocompletado
+                         habitual para bots de spam. Si llega relleno, se descarta el envío. -->
+                    <div class="form-group" style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+                        <label for="sitioweb">No completar este campo</label>
+                        <input type="text" id="sitioweb" name="sitioweb" tabindex="-1" autocomplete="off" />
+                    </div>
+                    <button class="btn-form" id="btnEnviar" type="submit">Enviar mensaje 🌱</button>
+                    <div class="form-msg" id="formMsg" role="alert" aria-live="polite"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== BOTÓN VOLVER ARRIBA ========== -->
+    <button class="btn-top" id="btnTop" aria-label="Volver arriba">⬆</button>
+    <button class="btn-back" id="btnBack" type="button" aria-label="Volver a la página anterior">← Volver</button>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-main">
+                <div>
+                    <div class="footer-logo">Green Hearts</div>
+                    <p class="footer-description">Iniciativa voluntaria universitaria dedicada a la educación ambiental y al cuidado de Sarapiquí, Costa Rica.</p>
+                </div>
+                <nav aria-label="Enlaces del pie de página">
+                    <h2 class="footer-heading">Explorar</h2>
+                    <ul class="footer-links">
+                        <li><a href="#nosotros">Sobre nosotros</a></li>
+                        <li><a href="#actividades">Actividades</a></li>
+                        <li><a href="#galeria">Archivo visual</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </nav>
+                <div class="footer-contact">
+                    <h2 class="footer-heading">Contacto</h2>
+                    <p><a href="mailto:green.hearts.una@gmail.com">green.hearts.una@gmail.com</a></p>
+                    <p>Sarapiquí, Heredia, Costa Rica</p>
+                    <p><a href="https://instagram.com/green_hearts_una" target="_blank" rel="noopener noreferrer">Instagram @green_hearts_una</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024-2026 Green Hearts. Todos los derechos reservados.</p>
+                <p>Diseñado y desarrollado por Teilor Perez, estudiante y voluntario activo.</p>
+                <p>Los datos enviados por el formulario se usan únicamente para responder consultas.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== JAVASCRIPT MEJORADO ========== -->
+    <script src="js/app.js"></script>
+</body>
+</html>
